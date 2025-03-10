@@ -1,0 +1,582 @@
+Below is the updated UI/UX design document with added UI elements, colors, fonts, and a detailed UI guideline section. This is structured so you can hand it directly to an AI design tool (like Figma’s AI plugins, MidJourney, or Uizard) to generate your designs for the shared admin panel CRM and performance dashboard.
+
+---
+
+### UI/UX Design Document: Shared Admin Panel CRM & Performance Dashboard  
+**Project Overview**: A single, lightweight admin panel for a sales team of four (Ashish, Samuel, Prashant, Kajal) to manage CRM activities and view a performance dashboard. Everyone has full access to add their data by selecting their name and view all team data.  
+
+**Target Users**: Ashish (Upwork), Samuel (Upwork), Prashant (Upwork), Kajal (Direct Sales), and Ravi (Admin).  
+**Tone**: Minimalist, collaborative, data-driven.  
+
+---
+
+### Screens & Layouts
+
+#### 1. Main Admin Panel Screen  
+**Purpose**: Single entry point for all CRM and dashboard functions.  
+**Layout**:  
+- **Top Bar**:  
+  - Display: “Team Sales Admin Panel” (H1, 24px, Bold, #333333)  
+  - Button: “Export Data” (Rounded, 14px, #FFFFFF text on #007BFF background, 32px height)  
+- **Left Sidebar (Collapsible)**:  
+  - Background: #F5F6F5  
+  - Navigation Links: “Leads”, “Tasks”, “Bids”, “Outreach”, “Performance Dashboard” (16px, #333333, Hover: #007BFF)  
+  - Icon: Chevron (right for expand, left for collapse, #666666, 20px)  
+- **Main Content**:  
+  - Display: Quick Stats  
+    - Total Leads (H2, 18px, #333333, Value: 36px, Bold, #007BFF)  
+    - Total Tasks Due Today (H2, 18px, #333333, Value: 36px, Bold, #FF9500)  
+    - Total Wins This Week (H2, 18px, #333333, Value: 36px, Bold, #28A745)  
+  - Button: “Add New Lead” (Rounded, 14px, #FFFFFF text on #007BFF, 40px height)  
+  - Button: “Add New Task” (Rounded, 14px, #FFFFFF text on #007BFF, 40px height)  
+**CRUD**: Read (display stats)  
+
+---
+
+#### 2. Leads Screen  
+**Purpose**: Manage and view all team leads.  
+**Layout**:  
+- **Top Bar**:  
+  - Text Field: Search bar (Rounded, 14px, #333333 text, #E9ECEF background, 300px width, Placeholder: “Search leads…”)  
+  - Dropdown: Filter by Team Member (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+    - Options: All, Ashish, Samuel, Prashant, Kajal  
+  - Dropdown: Filter by Status (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+    - Options: All, New, Contacted, In Progress, Won, Lost  
+  - Button: “Add Lead” (Rounded, 14px, #FFFFFF text on #007BFF, 40px height)  
+- **Main Content**:  
+  - Table View:  
+    - Background: #FFFFFF, Border: 1px #DEE2E6  
+    - Columns: Name (14px, #333333), Company (14px, #333333), Contact Info (14px, #007BFF, clickable), Source (14px, #666666), Status (14px, #28A745 for Won, #DC3545 for Lost), Added By (14px, #333333), Last Activity (14px, #666666)  
+    - Actions:  
+      - “Edit” (Pencil Icon, #007BFF, 20px)  
+      - “Delete” (Trash Icon, #DC3545, 20px)  
+- **Modal (Add/Edit Lead)**:  
+  - Background: #FFFFFF, Overlay: #00000050, Border Radius: 8px  
+  - Text Field: Name (14px, #333333, #E9ECEF background, 300px width)  
+  - Text Field: Company (14px, #333333, #E9ECEF background, 300px width)  
+  - Text Field: Contact Info (14px, #333333, #E9ECEF background, 300px width)  
+  - Dropdown: Source (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+  - Dropdown: Status (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+  - Dropdown: Added By (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+  - Button: “Save” (Rounded, 14px, #FFFFFF text on #28A745, 40px height)  
+  - Button: “Cancel” (Rounded, 14px, #333333 text on #E9ECEF, 40px height)  
+**CRUD**: Create (Add), Read (Table), Update (Edit), Delete (Trash)  
+
+---
+
+#### 3. Tasks Screen  
+**Purpose**: Track and manage all team tasks.  
+**Layout**:  
+- **Top Bar**:  
+  - Text Field: Search bar (Rounded, 14px, #333333 text, #E9ECEF background, 300px width, Placeholder: “Search tasks…”)  
+  - Dropdown: Filter by Team Member (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+  - Dropdown: Filter by Status (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+    - Options: All, Pending, Completed  
+  - Button: “Add Task” (Rounded, 14px, #FFFFFF text on #007BFF, 40px height)  
+- **Main Content**:  
+  - List View:  
+    - Card Background: #FFFFFF, Border: 1px #DEE2E6, Padding: 10px  
+    - Display: Task Name (16px, #333333), Added By (14px, #666666), Due Date (14px, #FF9500), Status (Checkbox, #28A745 when checked)  
+    - Actions: “Edit” (Pencil, #007BFF, 20px), “Delete” (Trash, #DC3545, 20px)  
+- **Modal (Add/Edit Task)**:  
+  - Text Field: Task Name (14px, #333333, #E9ECEF background, 300px width)  
+  - Dropdown: Added By (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+  - Date Picker: Due Date (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+  - Checkbox: Completed (#28A745 when checked)  
+  - Button: “Save” (Rounded, 14px, #FFFFFF text on #28A745, 40px height)  
+  - Button: “Cancel” (Rounded, 14px, #333333 text on #E9ECEF, 40px height)  
+**CRUD**: Create (Add), Read (List), Update (Edit/Checkbox), Delete (Trash)  
+
+---
+
+#### 4. Bids Screen (Upwork)  
+**Purpose**: Manage Upwork bids.  
+**Layout**:  
+- **Top Bar**:  
+  - Text Field: Search bar (Rounded, 14px, #333333 text, #E9ECEF background, 300px width, Placeholder: “Search bids…”)  
+  - Dropdown: Filter by Team Member (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+  - Dropdown: Filter by Status (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+    - Options: All, Draft, Submitted, Shortlisted, Hired, Lost  
+  - Button: “Add Bid” (Rounded, 14px, #FFFFFF text on #007BFF, 40px height)  
+- **Main Content**:  
+  - Table View:  
+    - Background: #FFFFFF, Border: 1px #DEE2E6  
+    - Columns: Job Title (14px, #333333), Link (14px, #007BFF, clickable), Bid Amount (14px, #333333), Status (14px, #28A745 for Hired, #DC3545 for Lost), Submission Date (14px, #666666), Added By (14px, #333333)  
+    - Actions: “Edit” (Pencil, #007BFF, 20px), “Delete” (Trash, #DC3545, 20px)  
+- **Modal (Add/Edit Bid)**:  
+  - Text Field: Job Title (14px, #333333, #E9ECEF background, 300px width)  
+  - Text Field: Job Link (14px, #333333, #E9ECEF background, 300px width)  
+  - Text Field: Bid Amount (14px, #333333, #E9ECEF background, 100px width)  
+  - Dropdown: Status (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+  - Dropdown: Added By (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+  - Text Area: Proposal Notes (14px, #333333, #E9ECEF background, 300px width, 100px height)  
+  - Button: “Save” (Rounded, 14px, #FFFFFF text on #28A745, 40px height)  
+  - Button: “Cancel” (Rounded, 14px, #333333 text on #E9ECEF, 40px height)  
+**CRUD**: Create (Add), Read (Table), Update (Edit), Delete (Trash)  
+
+---
+
+#### 5. Outreach Screen (Kajal)  
+**Purpose**: Track multi-channel outreach.  
+**Layout**:  
+- **Top Bar**:  
+  - Text Field: Search bar (Rounded, 14px, #333333 text, #E9ECEF background, 300px width, Placeholder: “Search outreach…”)  
+  - Dropdown: Filter by Channel (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+    - Options: All, LinkedIn, Email, WhatsApp, Job Boards, Staff Augmentation  
+  - Button: “Add Outreach” (Rounded, 14px, #FFFFFF text on #007BFF, 40px height)  
+- **Main Content**:  
+  - Pipeline View:  
+    - Stage Headers: Lead Identified, Contacted, Engaged, Proposal Sent, Closed (16px, #333333, Background: #F8F9FA)  
+    - Cards: Background #FFFFFF, Border 1px #DEE2E6, Draggable  
+    - Card Details: Lead Name (16px, #333333), Channel (14px, #666666), Last Action (14px, #666666), Added By (14px, #333333)  
+    - Actions: “Edit” (Pencil, #007BFF, 20px), “Delete” (Trash, #DC3545, 20px)  
+- **Modal (Add/Edit Outreach)**:  
+  - Text Field: Lead Name (14px, #333333, #E9ECEF background, 300px width)  
+  - Dropdown: Channel (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+  - Dropdown: Stage (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+  - Dropdown: Added By (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+  - Text Area: Notes (14px, #333333, #E9ECEF background, 300px width, 100px height)  
+  - Button: “Save” (Rounded, 14px, #FFFFFF text on #28A745, 40px height)  
+  - Button: “Cancel” (Rounded, 14px, #333333 text on #E9ECEF, 40px height)  
+- **Side Panel**:  
+  - Display: Template Library (List, 14px, #333333, Hover: #007BFF)  
+  - Button: “Add New Template” (Rounded, 14px, #FFFFFF text on #007BFF, 40px height)  
+**CRUD**: Create (Add/Template), Read (Pipeline/Templates), Update (Edit), Delete (Trash)  
+
+---
+
+#### 6. Performance Dashboard Screen  
+**Purpose**: Visualize team and individual performance.  
+**Layout**:  
+- **Top Bar**:  
+  - Dropdown: Time Filter (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+    - Options: Last 7 Days, Last 30 Days, Custom  
+  - Dropdown: Filter by Team Member (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)  
+- **Main Content**:  
+  - **Team Overview**:  
+    - Display: Total Leads (H2, 18px, #333333, Value: 36px, #007BFF), Conversion Rate (H2, 18px, #333333, Value: 36px, #28A745), Total Wins (H2, 18px, #333333, Value: 36px, #28A745)  
+    - Bar Chart: Activity by Channel (Bars: #007BFF, Background: #F8F9FA)  
+  - **Individual Stats**:  
+    - Display (Upwork): Bids Submitted (14px, #333333, Value: #007BFF), Shortlisted (14px, #333333, Value: #FF9500), Won (14px, #333333, Value: #28A745), Win Rate (14px, #333333, Value: #28A745)  
+    - Display (Kajal): Outreach Volume (14px, #333333, Value: #007BFF), Response Rate (14px, #333333, Value: #FF9500), Deals Closed (14px, #333333, Value: #28A745)  
+    - Progress Bar: Leads Moved (Fill: #28A745, Background: #E9ECEF, 10px height)  
+  - **Leaderboard**:  
+    - Display: Ranked List (Name: 16px, #333333, Wins/Revenue: 16px, #28A745, Background: #FFFFFF, Border: 1px #DEE2E6)  
+  - **Trends**:  
+    - Line Graph: Bids/Outreach/Wins (Lines: #007BFF/#FF9500/#28A745, Background: #F8F9FA)  
+**CRUD**: Read (display only)  
+
+---
+
+### UI Guidelines  
+**Colors**:  
+- Primary: #007BFF (Blue) - Buttons, Links, Active States  
+- Success: #28A745 (Green) - Wins, Completed, Save Actions  
+- Warning: #FF9500 (Orange) - Due Dates, Shortlisted, Alerts  
+- Danger: #DC3545 (Red) - Lost, Delete Actions  
+- Neutral:  
+  - #FFFFFF (White) - Backgrounds, Card Content  
+  - #F5F6F5 (Light Gray) - Sidebar, Secondary Backgrounds  
+  - #E9ECEF (Lighter Gray) - Input Fields, Progress Bar Background  
+  - #DEE2E6 (Gray) - Borders, Dividers  
+  - #CED4DA (Darker Gray) - Dropdown Borders  
+  - #F8F9FA (Subtle Gray) - Chart Backgrounds  
+  - #333333 (Dark Gray) - Primary Text  
+  - #666666 (Medium Gray) - Secondary Text  
+  - #00000050 (Semi-Transparent Black) - Modal Overlay  
+
+**Typography**:  
+- Font Family: “Roboto” (Sans-serif)  
+- Sizes:  
+  - H1: 24px, Bold - Screen Titles  
+  - H2: 18px, Regular - Section Headers, Stats Labels  
+  - Body: 14px, Regular - Text Fields, Table Data, Dropdowns  
+  - Large Values: 36px, Bold - Key Metrics (e.g., Total Leads)  
+  - Links: 14px/16px, Regular - Navigation, Hover: Underline  
+
+**UI Elements**:  
+- **Buttons**:  
+  - Rounded (8px radius), 40px height, 14px text, Padding: 10px 20px  
+  - Primary: #007BFF background, #FFFFFF text  
+  - Success: #28A745 background, #FFFFFF text  
+  - Neutral: #E9ECEF background, #333333 text  
+- **Text Fields**:  
+  - Rounded (4px radius), 14px text, #E9ECEF background, Border: 1px #CED4DA, Padding: 8px  
+  - Focus: Border 2px #007BFF  
+- **Dropdowns**:  
+  - 14px text, #FFFFFF background, Border: 1px #CED4DA, Rounded (4px), Padding: 8px  
+  - Hover: Background #F8F9FA  
+- **Tables**:  
+  - Background: #FFFFFF, Border: 1px #DEE2E6, Row Hover: #F8F9FA  
+  - Header: 14px, Bold, #333333, Background: #F5F6F5  
+- **Cards (Pipeline/List)**:  
+  - Background: #FFFFFF, Border: 1px #DEE2E6, Padding: 10px, Rounded (4px)  
+  - Draggable: Shadow (0px 4px 8px #00000020) on drag  
+- **Modals**:  
+  - Background: #FFFFFF, Overlay: #00000050, Rounded (8px), 80% screen width, Padding: 20px  
+- **Icons**:  
+  - Size: 20px, Colors: #007BFF (Edit), #DC3545 (Delete), #666666 (Neutral)  
+- **Charts**:  
+  - Background: #F8F9FA, Lines/Bars: #007BFF, #FF9500, #28A745  
+
+**Layout**:  
+- **Sidebar**: 250px width (collapsed: 60px), #F5F6F5 background  
+- **Top Bar**: 60px height, #FFFFFF background, Border-bottom: 1px #DEE2E6  
+- **Main Content**: Padding: 20px, #FFFFFF background  
+- **Responsive**: Stack sidebar/top bar vertically on mobile (<768px), horizontal scroll for tables  
+
+---
+
+### Notes for AI Design Tool  
+- Generate a clean, modern interface with a focus on data entry and readability.  
+- Use Roboto font and the specified color palette consistently.  
+- Prioritize Leads and Performance Dashboard screens for initial mockups.  
+- Ensure buttons and inputs are finger-friendly (min 40px tap area) for mobile use.  
+- Export designs with layers labeled (e.g., “Button-Primary”, “TextField-Search”).  
+
+---
+
+
+
+
+—----
+
+Project Overview: A single, lightweight admin panel for a sales team of four (Ashish, Samuel, Prashant, Kajal) to manage CRM activities and view a performance dashboard. Everyone has full access to add their data by selecting their name and view all team data. Includes a performance matrix with red underlines and progress circles for underperformance.
+
+Target Users: Ashish (Upwork), Samuel (Upwork), Prashant (Upwork), Kajal (Direct Sales), and Ravi (Admin).
+
+
+Tone: Minimalist, collaborative, data-driven.
+
+
+Screens & Layouts
+
+(Note: Only the Performance Dashboard Screen is updated below; other screens remain unchanged.)
+
+6. Performance Dashboard Screen
+
+Purpose: Visualize team and individual performance, including a matrix to flag underperformance against monthly targets (USD revenue and 2 clients onboarded) with red underlines and revenue progress circles.
+
+
+Layout:
+
+Top Bar:
+
+
+Dropdown: Time Filter (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)
+
+
+Options: Last 7 Days, Last 30 Days, Custom
+
+
+
+
+ Dropdown: Filter by Team Member (14px, #333333, #FFFFFF background, Border: 1px #CED4DA)
+
+
+Options: All, Ashish, Samuel, Prashant, Kajal
+
+
+
+
+
+
+
+ Main Content:
+
+
+Team Overview:
+
+
+Display: Total Leads (H2, 18px, #333333, Value: 36px, #007BFF), Conversion Rate (H2, 18px, #333333, Value: 36px, #28A745), Total Wins (H2, 18px, #333333, Value: 36px, #28A745)
+
+ Bar Chart: Activity by Channel (Bars: #007BFF, Background: #F8F9FA)
+
+
+
+
+ Individual Stats:
+
+
+Display (Upwork): Bids Submitted (14px, #333333, Value: #007BFF), Shortlisted (14px, #333333, Value: #FF9500), Won (14px, #333333, Value: #28A745), Win Rate (14px, #333333, Value: #28A745)
+
+ Display (Kajal): Outreach Volume (14px, #333333, Value: #007BFF), Response Rate (14px, #333333, Value: #FF9500), Deals Closed (14px, #333333, Value: #28A745)
+
+ Progress Bar: Leads Moved (Fill: #28A745, Background: #E9ECEF, 10px height)
+
+
+
+
+ Performance Matrix:
+
+
+Table Layout:
+
+
+Columns:
+
+
+Name (16px, #333333, Underline: 2px #DC3545 if underperforming)
+
+ Revenue Target (USD) (14px, #333333)
+
+ Revenue Achieved (14px, #333333, Progress Circle: 20px diameter, Fill #007BFF, Border #E9ECEF)
+
+ Client Target (14px, #333333)
+
+ Clients Onboarded (14px, #333333)
+
+ Status (Visual Indicator: Green Checkmark 20px #28A745 if targets met)
+
+
+
+
+ Background: #FFFFFF, Border: 1px #DEE2E6
+
+ Row Example:
+
+
+“Ashish” (Red underline #DC3545), “$5,000”, “$3,200” (Progress Circle: 64% filled #007BFF), “2”, “1” (No checkmark)
+
+ “Kajal” (No underline), “$7,000”, “$7,500” (Progress Circle: 100% filled #007BFF), “2”, “2” (Green Checkmark #28A745)
+
+
+
+
+ Logic:
+
+
+If Revenue Achieved < Revenue Target OR Clients Onboarded < 2, apply Red Underline under Name
+
+ If both targets met, show Green Checkmark in Status column
+
+
+
+
+
+
+
+ Manual Input Fields (per row):
+
+
+Text Field: Revenue Target (14px, #333333, #E9ECEF background, 100px width)
+
+ Text Field: Revenue Achieved (14px, #333333, #E9ECEF background, 100px width)
+
+ Text Field: Clients Onboarded (14px, #333333, #E9ECEF background, 50px width)
+
+ Button: “Update” (Rounded, 14px, #FFFFFF text on #007BFF, 32px height)
+
+
+
+
+
+
+
+ Leaderboard:
+
+
+Display: Ranked List (Name: 16px, #333333, Wins/Revenue: 16px, #28A745, Background: #FFFFFF, Border: 1px #DEE2E6)
+
+
+
+
+ Trends:
+
+
+Line Graph: Bids/Outreach/Wins (Lines: #007BFF/#FF9500/#28A745, Background: #F8F9FA)
+ CRUD: Read (display), Update (manual input for targets/achieved)
+
+
+
+
+
+
+
+
+UI Guidelines
+
+Colors:
+
+Primary: #007BFF (Blue) - Buttons, Links, Active States, Progress Circle Fill
+
+ Success: #28A745 (Green) - Wins, Completed, Save Actions, Met Targets Checkmark
+
+ Warning: #FF9500 (Orange) - Due Dates, Shortlisted, Alerts
+
+ Danger: #DC3545 (Red) - Lost, Delete Actions, Underperformance Underline
+
+ Neutral:
+
+
+#FFFFFF (White) - Backgrounds, Card Content
+
+ #F5F6F5 (Light Gray) - Sidebar, Secondary Backgrounds
+
+ #E9ECEF (Lighter Gray) - Input Fields, Progress Bar/Circle Background
+
+ #DEE2E6 (Gray) - Borders, Dividers
+
+ #CED4DA (Darker Gray) - Dropdown Borders
+
+ #F8F9FA (Subtle Gray) - Chart Backgrounds
+
+ #333333 (Dark Gray) - Primary Text
+
+ #666666 (Medium Gray) - Secondary Text
+
+ #00000050 (Semi-Transparent Black) - Modal Overlay
+
+
+
+
+
+
+Typography:
+
+Font Family: “Roboto” (Sans-serif)
+
+ Sizes:
+
+
+H1: 24px, Bold - Screen Titles
+
+ H2: 18px, Regular - Section Headers, Stats Labels
+
+ Body: 14px, Regular - Text Fields, Table Data, Dropdowns
+
+ Large Values: 36px, Bold - Key Metrics (e.g., Total Leads)
+
+ Links: 14px/16px, Regular - Navigation, Hover: Underline
+
+
+
+
+
+
+UI Elements:
+
+Buttons:
+
+
+Rounded (8px radius), 40px height (32px for “Update”), 14px text, Padding: 10px 20px
+
+ Primary: #007BFF background, #FFFFFF text
+
+ Success: #28A745 background, #FFFFFF text
+
+ Neutral: #E9ECEF background, #333333 text
+
+
+
+
+ Text Fields:
+
+
+Rounded (4px radius), 14px text, #E9ECEF background, Border: 1px #CED4DA, Padding: 8px
+
+ Focus: Border 2px #007BFF
+
+
+
+
+ Dropdowns:
+
+
+14px text, #FFFFFF background, Border: 1px #CED4DA, Rounded (4px), Padding: 8px
+
+ Hover: Background #F8F9FA
+
+
+
+
+ Tables:
+
+
+Background: #FFFFFF, Border: 1px #DEE2E6, Row Hover: #F8F9FA
+
+ Header: 14px, Bold, #333333, Background: #F5F6F5
+
+ Performance Matrix Underline: Red #DC3545, 2px thick, full width under Name text
+
+ Performance Matrix Checkmark: Green #28A745, 20px, centered in Status cell
+
+ Progress Circle: 20px diameter, Border 2px #E9ECEF, Fill #007BFF (percentage-based), centered in Revenue Achieved cell
+
+
+
+
+ Cards (Pipeline/List):
+
+
+Background: #FFFFFF, Border: 1px #DEE2E6, Padding: 10px, Rounded (4px)
+
+ Draggable: Shadow (0px 4px 8px #00000020) on drag
+
+
+
+
+ Modals:
+
+
+Background: #FFFFFF, Overlay: #00000050, Rounded (8px), 80% screen width, Padding: 20px
+
+
+
+
+ Icons:
+
+
+Size: 20px, Colors: #007BFF (Edit), #DC3545 (Delete), #666666 (Neutral)
+
+
+
+
+ Charts:
+
+
+Background: #F8F9FA, Lines/Bars: #007BFF, #FF9500, #28A745
+
+
+
+
+
+
+Layout:
+
+Sidebar: 250px width (collapsed: 60px), #F5F6F5 background
+
+ Top Bar: 60px height, #FFFFFF background, Border-bottom: 1px #DEE2E6
+
+ Main Content: Padding: 20px, #FFFFFF background
+
+ Responsive: Stack sidebar/top bar vertically on mobile (<768px), horizontal scroll for tables
+
+
+Notes for AI Design Tool
+
+Generate a clean, modern interface with a focus on data entry and readability.
+
+ In the Performance Dashboard, include a Performance Matrix table with:
+
+
+Red underlines (#DC3545, 2px) under the Name for underperformance (Revenue Achieved < Target OR Clients Onboarded < 2).
+
+ Green checkmarks (#28A745, 20px) in the Status column when both targets are met.
+
+ Progress circles (20px, #007BFF fill, #E9ECEF border) in the Revenue Achieved column showing percentage of target met.
+
+
+
+
+ Use Roboto font and the specified color palette consistently.
+
+ Prioritize Leads and Performance Dashboard screens for initial mockups.
+
+ Ensure buttons and inputs are finger-friendly (min 40px tap area) for mobile use.
+
+ Export designs with layers labeled (e.g., “Table-Matrix-Underline”, “Progress-Circle”).
+
+
+
+

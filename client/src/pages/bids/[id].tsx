@@ -1,0 +1,283 @@
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useForm, UseFormSetValue } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { Bid, InsertBid, insertBidSchema } from "@shared/schema";
+import { Loader2, ArrowLeft } from "lucide-react";
+
+const BID_STATUSES = ["Pending", "Accepted", "Rejected"] as const;
+
+export default function EditBid() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const { data: bid, isLoading: isFetching } = useQuery<Bid>({
+    queryKey: ["/api/bids", id],
+    enabled: !!id,
+  });
+
+  const form = useForm<InsertBid>({
+    resolver: zodResolver(insertBidSchema),
+    defaultValues: {
+      jobTitle: "",
+      jobLink: "",
+      bidAmount: 0,
+      status: "Pending",
+      submissionDate: new Date(),
+      addedById: 1,
+      proposalNotes: "",
+    },
+  });
+
+  // Update form when bid data is loaded
+  useEffect(() => {
+    if (bid) {
+      form.reset({
+        jobTitle: bid.jobTitle,
+        jobLink: bid.jobLink,
+        bidAmount: bid.bidAmount,
+        status: bid.status,
+        submissionDate: new Date(bid.submissionDate),
+        addedById: bid.addedById,
+        proposalNotes: bid.proposalNotes || "",
+      });
+    }
+  }, [bid, form]);
+
+  const mutation = useMutation({
+    mutationFn: async (data: InsertBid) => {
+      try {
+        console.log('Updating bid data:', data);
+        const formattedData = {
+          ...data,
+          submissionDate: data.submissionDate instanceof Date 
+            ? data.submissionDate.toISOString() 
+            : new Date(data.submissionDate).toISOString(),
+          bidAmount: Number(data.bidAmount),
+          addedById: Number(data.addedById),
+        };
+        console.log('Formatted data:', formattedData);
+
+        const response = await apiRequest("PATCH", `/api/bids/${id}`, formattedData);
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to update bid");
+        }
+        const result = await response.json();
+        console.log('Updated bid:', result);
+        return result;
+      } catch (error) {
+        console.error("Error updating bid:", error);
+        throw error;
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/bids"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bids", id] });
+      toast({
+        title: "Success",
+        description: "Bid updated successfully",
+      });
+      navigate("/bids");
+    },
+    onError: (error: Error) => {
+      console.error("Update bid error:", error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to update bid",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const onSubmit = async (data: InsertBid) => {
+    console.log("Form submitted with data:", data);
+    try {
+      await mutation.mutateAsync(data);
+    } catch (error) {
+      console.error("Form submission error:", error);
+    }
+  };
+
+  if (isFetching) {
+    return (
+      <div className="flex items-center justify-center h-48">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  if (!bid) {
+    return (
+      <div className="text-center space-y-4">
+        <p className="text-destructive">Bid not found</p>
+        <Button variant="outline" onClick={() => navigate("/bids")}>
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Bids
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-2xl mx-auto">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold">Edit Bid</h2>
+        <Button variant="outline" onClick={() => navigate("/bids")}>
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Bids
+        </Button>
+      </div>
+
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <FormField
+            control={form.control}
+            name="jobTitle"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Job Title <span className="text-red-500">*</span></FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="Enter job title" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="jobLink"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Job Link <span className="text-red-500">*</span></FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="Enter job URL" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="bidAmount"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Bid Amount <span className="text-red-500">*</span></FormLabel>
+                <FormControl>
+                  <Input 
+                    type="number" 
+                    {...field} 
+                    onChange={(e) => field.onChange(Number(e.target.value))}
+                    placeholder="Enter bid amount" 
+                    className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="status"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Status <span className="text-red-500">*</span></FormLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {BID_STATUSES.map((status) => (
+                      <SelectItem key={status} value={status}>
+                        {status}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="submissionDate"
+            render={({ field }) => {
+              // Ensure we have a valid date value
+              const dateValue = field.value instanceof Date && !isNaN(field.value.getTime())
+                ? field.value.toISOString().split('T')[0]
+                : '';
+
+              return (
+                <FormItem>
+                  <FormLabel>Submission Date <span className="text-red-500">*</span></FormLabel>
+                  <FormControl>
+                    <Input
+                      type="date"
+                      value={dateValue}
+                      onChange={(e) => {
+                        const date = new Date(e.target.value);
+                        field.onChange(date);
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="proposalNotes"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Proposal Notes <span className="text-red-500">*</span></FormLabel>
+                <FormControl>
+                  <Input {...field} value={field.value || ''} placeholder="Enter proposal notes" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="flex gap-4">
+            <Button type="submit" disabled={mutation.isPending}>
+              {mutation.isPending ? "Updating..." : "Update Bid"}
+            </Button>
+            <Button type="button" variant="outline" onClick={() => navigate("/bids")}>
+              Cancel
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </div>
+  );
+}
